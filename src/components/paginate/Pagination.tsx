@@ -65,6 +65,7 @@ export default function PaginationComponent() {
 
   const changingCurrentQuantity = (e: string) => {
     dispatch(setCurrentQuantity(parseInt(e)));
+    dispatch(setCurrentPage(1));
   };
 
   return (
