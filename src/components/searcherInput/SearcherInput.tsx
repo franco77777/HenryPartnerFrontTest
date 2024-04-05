@@ -10,17 +10,16 @@ const SearcherInput = () => {
   const search = useAppSelector((state) => state.products.searcher);
   const currentPage = useAppSelector((state) => state.products.page);
   const productsQuantity = useAppSelector((state) => state.products.quantity);
-  console.log("soy search", search);
 
   const dispatch = useAppDispatch();
   const searching = async () => {
     const { data } = await axios(
-      `http://localhost:3000/api/products/pagination?limit=${productsQuantity}&page=${currentPage}&name=${search}`
+      `https://henry-partner-back-test.vercel.app/api/products/pagination?limit=${productsQuantity}&page=${currentPage}&name=${search}`
     );
     data.totalPages < currentPage
       ? dispatch(setCurrentPage(data.totalPages))
       : "";
-    console.log("soy data", data);
+
     dispatch(setCurrentProduct(data));
   };
   return (

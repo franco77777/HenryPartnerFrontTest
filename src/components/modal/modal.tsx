@@ -23,13 +23,12 @@ export default function AddModal() {
       quantity,
     };
     const { data } = await axios.post(
-      "http://localhost:3000/api/products",
+      "https://henry-partner-back-test.vercel.app/api/products",
       product
     );
-    console.log("product added", data);
+
     dispatch(getProducts());
   };
-  console.log(name, openModal, quantity);
 
   return (
     <>

@@ -11,7 +11,7 @@ const Delete = (props: Props) => {
   const dispatch = useAppDispatch();
   const deleteProduct = async () => {
     const { data } = await axios.delete(
-      `http://localhost:3000/api/products/${props.productId._id}`
+      `https://henry-partner-back-test.vercel.app/api/products/${props.productId._id}`
     );
     console.log("product deleted", data);
     dispatch(getProducts());

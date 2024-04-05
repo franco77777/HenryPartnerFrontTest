@@ -22,23 +22,21 @@ export default function PaginationComponent() {
 
   useEffect(() => {
     dispatch(getProducts());
-    console.log("soy product", doc);
   }, []);
-  console.log("soy product2", doc);
 
   const onPageChange = async (page: number) => {
     dispatch(setCurrentPage(page));
     if (searcher) {
       const { data } = await axios(
-        `http://localhost:3000/api/products/pagination?limit=${productsQuantity}&page=${page}&name=${searcher}`
+        `https://henry-partner-back-test.vercel.app/api/products/pagination?limit=${productsQuantity}&page=${page}&name=${searcher}`
       );
-      console.log("soy data", data);
+
       dispatch(setCurrentProduct(data));
     } else {
       const { data } = await axios(
-        `http://localhost:3000/api/products/pagination?limit=${productsQuantity}&page=${page}`
+        `https://henry-partner-back-test.vercel.app/api/products/pagination?limit=${productsQuantity}&page=${page}`
       );
-      console.log("soy data", data);
+
       dispatch(setCurrentProduct(data));
     }
   };
@@ -46,23 +44,27 @@ export default function PaginationComponent() {
   const setProductQuantity = async () => {
     if (searcher) {
       const { data } = await axios(
-        `http://localhost:3000/api/products/pagination?limit=${productsQuantity}&page=${currentPage}&name=${searcher}`
+        `https://henry-partner-back-test.vercel.app/api/products/pagination?limit=${productsQuantity}&page=${currentPage}&name=${searcher}`
       );
-      console.log("soy data", data);
+
       data.totalPages < currentPage
         ? dispatch(setCurrentPage(data.totalPages))
         : "";
       dispatch(setCurrentProduct(data));
     } else {
       const { data } = await axios(
-        `http://localhost:3000/api/products/pagination?limit=${productsQuantity}&page=${currentPage}`
+        `https://henry-partner-back-test.vercel.app/api/products/pagination?limit=${productsQuantity}&page=${currentPage}`
       );
-      console.log("soy data", data);
+
       data.totalPages < currentPage
         ? dispatch(setCurrentPage(data.totalPages))
         : "";
       dispatch(setCurrentProduct(data));
     }
+  };
+
+  const changingCurrentQuantity = (e) => {
+    dispatch(setCurrentQuantity(e));
   };
 
   return (
@@ -78,7 +80,7 @@ export default function PaginationComponent() {
         <input
           type="text"
           className="w-10 h-8 rounded border border-gray-300 p-2"
-          onChange={(e) => dispatch(setCurrentQuantity(e.target.value))}
+          onChange={(e) => changingCurrentQuantity(e.target.value)}
           onKeyUp={() => setProductQuantity()}
         />
       </div>

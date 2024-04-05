@@ -12,7 +12,9 @@ interface initState {
 
 export const getProducts = createAsyncThunk("product", async () => {
   try {
-    const { data } = await axios("http://localhost:3000/api/products");
+    const { data } = await axios(
+      "https://henry-partner-back-test.vercel.app/api/products"
+    );
 
     return data;
   } catch (error) {

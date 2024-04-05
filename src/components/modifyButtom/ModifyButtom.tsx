@@ -18,7 +18,6 @@ const ModifyButtom = (props: Props) => {
   function onCloseModal() {
     setOpenModal(false);
     setName("");
-    console.log("opne modal");
   }
   const saveChanges = async () => {
     const productUpdate = {
@@ -26,11 +25,10 @@ const ModifyButtom = (props: Props) => {
       quantity,
     };
     const { data } = await axios.put(
-      `http://localhost:3000/api/products/${props.product._id}`,
+      `https://henry-partner-back-test.vercel.app/api/products/${props.product._id}`,
       productUpdate
     );
     dispatch(getProducts());
-    console.log("soy response data update", data);
   };
   return (
     <>
