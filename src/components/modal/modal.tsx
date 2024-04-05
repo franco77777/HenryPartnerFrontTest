@@ -7,7 +7,7 @@ import axios from "axios";
 import { useAppDispatch } from "../../utils/cfg";
 import { getProducts } from "../../redux/productsSlice";
 
-export default function Component() {
+export default function AddModal() {
   const dispatch = useAppDispatch();
   const [openModal, setOpenModal] = useState(false);
   const [name, setName] = useState("");

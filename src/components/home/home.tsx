@@ -3,11 +3,12 @@ import { textGreyLight } from "../../utils/css";
 import "./home.css";
 import { useAppDispatch, useAppSelector } from "../../utils/cfg";
 import { getProducts, getWelcome } from "../../redux/productsSlice";
-import Component from "../modal/modal";
+import AddModal from "../modal/modal";
 import Delete from "../delete/Delete";
 import ModifyButtom from "../modifyButtom/ModifyButtom";
 import { Product } from "../../utils/interfaces";
 import SearcherInput from "../searcherInput/SearcherInput";
+import PaginationComponent from "../paginate/Pagination";
 
 const Home = () => {
   // const [toogle, setToogle] = useState<boolean>();
@@ -71,7 +72,8 @@ const Home = () => {
           >
             Products
           </span>
-          <Component />
+          <AddModal />
+          <PaginationComponent />
           <SearcherInput />
           <ul className="flex flex-col gap-[calc(5px+0.5vw)] ">
             {/* <li id="nombre" onClick={handleToogle} className="toogle">
