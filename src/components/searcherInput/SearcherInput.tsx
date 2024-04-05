@@ -1,15 +1,19 @@
-import { useState } from "react";
 import "./searcherInput.css";
 import axios from "axios";
-import { useAppDispatch } from "../../utils/cfg";
-import { setCurrentProduct } from "../../redux/productsSlice";
+import { useAppDispatch, useAppSelector } from "../../utils/cfg";
+import { setCurrentProduct, setCurrentSearch } from "../../redux/productsSlice";
 const SearcherInput = () => {
-  const [search, setSearch] = useState("");
+  const search = useAppSelector((state) => state.products.searcher);
+  const currentPage = useAppSelector((state) => state.products.page);
+  const productsQuantity = useAppSelector((state) => state.products.quantity);
+  console.log("soy search", search);
+
   const dispatch = useAppDispatch();
   const searching = async () => {
     const { data } = await axios(
-      `http://localhost:3000/api/products/filter/${search}`
+      `http://localhost:3000/api/products/pagination?limit=${productsQuantity}&page=${currentPage}&name=${search}`
     );
+    console.log("soy data", data);
     dispatch(setCurrentProduct(data));
   };
   return (
@@ -40,7 +44,7 @@ const SearcherInput = () => {
             </svg>
           </div>
           <input
-            onChange={(e) => setSearch(e.target.value)}
+            onChange={(e) => dispatch(setCurrentSearch(e.target.value))}
             onKeyUp={searching}
             type="search"
             id="default-search"

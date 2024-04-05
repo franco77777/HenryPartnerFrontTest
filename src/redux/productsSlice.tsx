@@ -1,11 +1,13 @@
 import { PayloadAction, createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { Welcome, Product, Doc } from "../utils/interfaces";
+import { Doc } from "../utils/interfaces";
 import axios from "axios";
 
 interface initState {
   products: Doc | null;
   status: string;
-  welcome: Welcome | null;
+  searcher: string | null;
+  quantity: number;
+  page: number;
 }
 
 export const getProducts = createAsyncThunk("product", async () => {
@@ -29,7 +31,9 @@ export const getWelcome = createAsyncThunk("welcome", async () => {
 });
 const initialState: initState = {
   products: null,
-  welcome: null,
+  searcher: null,
+  quantity: 3,
+  page: 1,
   status: "idle",
 };
 const servicesSlice = createSlice({
@@ -38,6 +42,15 @@ const servicesSlice = createSlice({
   reducers: {
     setCurrentProduct: (state, action) => {
       state.products = action.payload;
+    },
+    setCurrentSearch: (state, action) => {
+      state.searcher = action.payload;
+    },
+    setCurrentQuantity: (state, action) => {
+      state.quantity = action.payload;
+    },
+    setCurrentPage: (state, action) => {
+      state.page = action.payload;
     },
   },
   extraReducers: (builder) => {
@@ -54,21 +67,13 @@ const servicesSlice = createSlice({
     builder.addCase(getProducts.rejected, (state) => {
       state.status = "rejected";
     });
-    builder.addCase(getWelcome.pending, (state) => {
-      state.status = "loading";
-    });
-    builder.addCase(
-      getWelcome.fulfilled,
-      (state, action: PayloadAction<Welcome>) => {
-        state.welcome = action.payload;
-        state.status = "success";
-      }
-    );
-    builder.addCase(getWelcome.rejected, (state) => {
-      state.status = "rejected";
-    });
   },
 });
 
-export const { setCurrentProduct } = servicesSlice.actions;
+export const {
+  setCurrentProduct,
+  setCurrentSearch,
+  setCurrentQuantity,
+  setCurrentPage,
+} = servicesSlice.actions;
 export default servicesSlice.reducer;

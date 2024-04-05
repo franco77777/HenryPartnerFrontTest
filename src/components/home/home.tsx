@@ -12,7 +12,7 @@ import PaginationComponent from "../paginate/Pagination";
 
 const Home = () => {
   // const [toogle, setToogle] = useState<boolean>();
-  const dispatch = useAppDispatch();
+
   const products = useAppSelector((state) => state.products.products?.docs);
 
   const productInit = {
@@ -25,11 +25,6 @@ const Home = () => {
   };
   const [productSelected, setProductSelected] = useState<Product>(productInit);
 
-  useEffect(() => {
-    dispatch(getProducts());
-    dispatch(getWelcome());
-  }, []);
-
   const handleToogle = (e: Product) => {
     const item = document.getElementById(e._id);
 
@@ -37,7 +32,7 @@ const Home = () => {
     hasClase2
       ? item?.classList.remove("toogle")
       : item?.classList.add("toogle");
-    //console.log(hasClase2);
+
     const crossButton = document.getElementById("-" + e._id);
     const crossAnimation = crossButton.querySelectorAll("span");
     for (const element of crossAnimation) {
@@ -53,11 +48,9 @@ const Home = () => {
           ? element.classList.remove("getOffCross")
           : element.classList.add("getOffCross");
       }
-      console.log("soy id product", e);
 
       setProductSelected(e);
     }
-    //console.log("soy animation", crossAnimation);
 
     //setToogle(!toogle);
   };

@@ -4,12 +4,20 @@ import axios from "axios";
 import { Pagination } from "flowbite-react";
 import { useEffect, useState } from "react";
 import { useAppDispatch, useAppSelector } from "../../utils/cfg";
-import { getProducts, setCurrentProduct } from "../../redux/productsSlice";
+import {
+  getProducts,
+  setCurrentPage,
+  setCurrentProduct,
+  setCurrentQuantity,
+} from "../../redux/productsSlice";
 
 export default function PaginationComponent() {
-  const [currentPage, setCurrentPage] = useState(1);
-  const [productsQuantity, setProductsQuantity] = useState(3);
+  // const [currentPage, setCurrentPage] = useState(1);
+  // const [productsQuantity, setProductsQuantity] = useState(3);
+  const currentPage = useAppSelector((state) => state.products.page);
+  const productsQuantity = useAppSelector((state) => state.products.quantity);
   const doc = useAppSelector((state) => state.products.products);
+  const searcher = useAppSelector((state) => state.products.searcher);
   const dispatch = useAppDispatch();
 
   useEffect(() => {
@@ -19,9 +27,9 @@ export default function PaginationComponent() {
   console.log("soy product2", doc);
 
   const onPageChange = async (page: number) => {
-    setCurrentPage(page);
+    dispatch(setCurrentPage(page));
     const { data } = await axios(
-      `http://localhost:3000/api/products/pagination?limit=${productsQuantity}&page=${page}`
+      `http://localhost:3000/api/products/pagination?limit=${productsQuantity}&page=${page}&name=${searcher}`
     );
     console.log("soy data", data);
     dispatch(setCurrentProduct(data));
@@ -29,7 +37,7 @@ export default function PaginationComponent() {
 
   const setProductQuantity = async () => {
     const { data } = await axios(
-      `http://localhost:3000/api/products/pagination?limit=${productsQuantity}&page=${currentPage}`
+      `http://localhost:3000/api/products/pagination?limit=${productsQuantity}&page=${currentPage}&name=${searcher}`
     );
     console.log("soy data", data);
     dispatch(setCurrentProduct(data));
@@ -42,7 +50,7 @@ export default function PaginationComponent() {
         <input
           type="text"
           className="w-10 rounded border border-gray-300 p-2"
-          onChange={(e) => setProductsQuantity(e.target.value)}
+          onChange={(e) => dispatch(setCurrentQuantity(e.target.value))}
           onKeyUp={setProductQuantity}
         />
       </div>
