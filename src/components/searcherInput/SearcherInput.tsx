@@ -1,7 +1,11 @@
 import "./searcherInput.css";
 import axios from "axios";
 import { useAppDispatch, useAppSelector } from "../../utils/cfg";
-import { setCurrentProduct, setCurrentSearch } from "../../redux/productsSlice";
+import {
+  setCurrentPage,
+  setCurrentProduct,
+  setCurrentSearch,
+} from "../../redux/productsSlice";
 const SearcherInput = () => {
   const search = useAppSelector((state) => state.products.searcher);
   const currentPage = useAppSelector((state) => state.products.page);
@@ -13,6 +17,9 @@ const SearcherInput = () => {
     const { data } = await axios(
       `http://localhost:3000/api/products/pagination?limit=${productsQuantity}&page=${currentPage}&name=${search}`
     );
+    data.totalPages < currentPage
+      ? dispatch(setCurrentPage(data.totalPages))
+      : "";
     console.log("soy data", data);
     dispatch(setCurrentProduct(data));
   };

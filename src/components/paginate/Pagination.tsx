@@ -28,32 +28,61 @@ export default function PaginationComponent() {
 
   const onPageChange = async (page: number) => {
     dispatch(setCurrentPage(page));
-    const { data } = await axios(
-      `http://localhost:3000/api/products/pagination?limit=${productsQuantity}&page=${page}&name=${searcher}`
-    );
-    console.log("soy data", data);
-    dispatch(setCurrentProduct(data));
+    if (searcher) {
+      const { data } = await axios(
+        `http://localhost:3000/api/products/pagination?limit=${productsQuantity}&page=${page}&name=${searcher}`
+      );
+      console.log("soy data", data);
+      dispatch(setCurrentProduct(data));
+    } else {
+      const { data } = await axios(
+        `http://localhost:3000/api/products/pagination?limit=${productsQuantity}&page=${page}`
+      );
+      console.log("soy data", data);
+      dispatch(setCurrentProduct(data));
+    }
   };
 
   const setProductQuantity = async () => {
-    const { data } = await axios(
-      `http://localhost:3000/api/products/pagination?limit=${productsQuantity}&page=${currentPage}&name=${searcher}`
-    );
-    console.log("soy data", data);
-    dispatch(setCurrentProduct(data));
+    if (searcher) {
+      const { data } = await axios(
+        `http://localhost:3000/api/products/pagination?limit=${productsQuantity}&page=${currentPage}&name=${searcher}`
+      );
+      console.log("soy data", data);
+      data.totalPages < currentPage
+        ? dispatch(setCurrentPage(data.totalPages))
+        : "";
+      dispatch(setCurrentProduct(data));
+    } else {
+      const { data } = await axios(
+        `http://localhost:3000/api/products/pagination?limit=${productsQuantity}&page=${currentPage}`
+      );
+      console.log("soy data", data);
+      data.totalPages < currentPage
+        ? dispatch(setCurrentPage(data.totalPages))
+        : "";
+      dispatch(setCurrentProduct(data));
+    }
   };
 
   return (
     <div className="w-full flex flex-col justify-center items-center">
-      <div className="flex gap-2 h-[30px] min-w-min ">
-        <div className="text-gray-500 text-lg">Quantity</div>
+      <div className="text-gray-500 text-[calc(8px+1vw)]">
+        Total Pages: {doc?.totalPages}
+      </div>
+      <div className="text-gray-500 text-[calc(8px+1vw)]">
+        Total Products: {doc?.totalDocs}
+      </div>
+      <div className="flex gap-2 h-[30px] min-w-min justify-center items-center ">
+        <div className="text-gray-500 text-[calc(8px+1vw)]">Quantity</div>
         <input
           type="text"
-          className="w-10 rounded border border-gray-300 p-2"
+          className="w-10 h-8 rounded border border-gray-300 p-2"
           onChange={(e) => dispatch(setCurrentQuantity(e.target.value))}
-          onKeyUp={setProductQuantity}
+          onKeyUp={() => setProductQuantity()}
         />
       </div>
+
       <div className=" overflow-x-auto ">
         {doc?.docs && (
           <Pagination
