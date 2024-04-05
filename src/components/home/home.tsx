@@ -13,7 +13,7 @@ import PaginationComponent from "../paginate/Pagination";
 const Home = () => {
   // const [toogle, setToogle] = useState<boolean>();
   const dispatch = useAppDispatch();
-  const products = useAppSelector((state) => state.products.products);
+  const products = useAppSelector((state) => state.products.products?.docs);
 
   const productInit = {
     _id: "",

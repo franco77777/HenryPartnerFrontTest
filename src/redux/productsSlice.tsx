@@ -1,9 +1,9 @@
 import { PayloadAction, createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { Welcome, Product } from "../utils/interfaces";
+import { Welcome, Product, Doc } from "../utils/interfaces";
 import axios from "axios";
 
 interface initState {
-  products: Product[] | null;
+  products: Doc | null;
   status: string;
   welcome: Welcome | null;
 }
@@ -12,7 +12,6 @@ export const getProducts = createAsyncThunk("product", async () => {
   try {
     const { data } = await axios("http://localhost:3000/api/products");
 
-    console.log("soy data store", data);
     return data;
   } catch (error) {
     console.log(error);
@@ -22,8 +21,7 @@ export const getProducts = createAsyncThunk("product", async () => {
 export const getWelcome = createAsyncThunk("welcome", async () => {
   try {
     const { data } = await axios("https://rickandmortyapi.com/api/episode/28");
-    //console.log("soy data store", data);
-    console.log("soy morti ", data);
+
     return data;
   } catch (error) {
     console.log(error);
@@ -48,7 +46,7 @@ const servicesSlice = createSlice({
     });
     builder.addCase(
       getProducts.fulfilled,
-      (state, action: PayloadAction<Product[]>) => {
+      (state, action: PayloadAction<Doc>) => {
         state.products = action.payload;
         state.status = "success";
       }
