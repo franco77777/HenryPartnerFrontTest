@@ -34,19 +34,21 @@ const Home = () => {
       : item?.classList.add("toogle");
 
     const crossButton = document.getElementById("-" + e._id);
-    const crossAnimation = crossButton.querySelectorAll("span");
-    for (const element of crossAnimation) {
-      const rotationExist = element.classList.contains("rotate");
-      if (rotationExist) {
-        const animationExist = element.classList.contains("rotate2");
-        animationExist
-          ? element.classList.remove("rotate2")
-          : element.classList.add("rotate2");
-      } else {
-        const sencondAnimation = element.classList.contains("getOffCross");
-        sencondAnimation
-          ? element.classList.remove("getOffCross")
-          : element.classList.add("getOffCross");
+    if (crossButton) {
+      const crossAnimation = crossButton.querySelectorAll("span");
+      for (const element of crossAnimation) {
+        const rotationExist = element.classList.contains("rotate");
+        if (rotationExist) {
+          const animationExist = element.classList.contains("rotate2");
+          animationExist
+            ? element.classList.remove("rotate2")
+            : element.classList.add("rotate2");
+        } else {
+          const sencondAnimation = element.classList.contains("getOffCross");
+          sencondAnimation
+            ? element.classList.remove("getOffCross")
+            : element.classList.add("getOffCross");
+        }
       }
 
       setProductSelected(e);
