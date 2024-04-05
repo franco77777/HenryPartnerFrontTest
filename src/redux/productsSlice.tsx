@@ -72,5 +72,5 @@ const servicesSlice = createSlice({
   },
 });
 
-export const { setCurrentProduct: setCurrentService } = servicesSlice.actions;
+export const { setCurrentProduct } = servicesSlice.actions;
 export default servicesSlice.reducer;

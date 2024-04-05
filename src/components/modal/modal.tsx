@@ -36,7 +36,7 @@ export default function Component() {
       <button
         onClick={() => setOpenModal(true)}
         type="button"
-        className="focus:outline-none text-white bg-green-500 hover:bg-green-600 rounded-md text-[calc(8px+2vw)] py-[calc(2px+0.2vw)] px-[calc(6px+0.2vw)] mb-[calc(1px+1vw)] dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800"
+        className="focus:outline-none text-white bg-green-500 hover:bg-green-600 rounded-md text-[calc(8px+1vw)] py-[calc(2px+0.2vw)] px-[calc(6px+0.2vw)] mb-[calc(1px+1vw)] dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800"
       >
         Add Product
       </button>
