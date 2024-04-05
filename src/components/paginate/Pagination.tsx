@@ -2,7 +2,7 @@
 
 import axios from "axios";
 import { Pagination } from "flowbite-react";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useAppDispatch, useAppSelector } from "../../utils/cfg";
 import {
   getProducts,
@@ -63,8 +63,8 @@ export default function PaginationComponent() {
     }
   };
 
-  const changingCurrentQuantity = (e) => {
-    dispatch(setCurrentQuantity(e));
+  const changingCurrentQuantity = (e: string) => {
+    dispatch(setCurrentQuantity(parseInt(e)));
   };
 
   return (

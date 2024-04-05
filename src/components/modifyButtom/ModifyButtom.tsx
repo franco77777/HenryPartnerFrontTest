@@ -28,6 +28,8 @@ const ModifyButtom = (props: Props) => {
       `https://henry-partner-back-test.vercel.app/api/products/${props.product._id}`,
       productUpdate
     );
+    console.log(data);
+
     dispatch(getProducts());
   };
   return (

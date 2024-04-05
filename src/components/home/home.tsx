@@ -1,14 +1,14 @@
-import { useEffect, useState } from "react";
 import { textGreyLight } from "../../utils/css";
 import "./home.css";
-import { useAppDispatch, useAppSelector } from "../../utils/cfg";
-import { getProducts, getWelcome } from "../../redux/productsSlice";
+import { useAppSelector } from "../../utils/cfg";
+
 import AddModal from "../modal/modal";
 import Delete from "../delete/Delete";
 import ModifyButtom from "../modifyButtom/ModifyButtom";
 import { Product } from "../../utils/interfaces";
 import SearcherInput from "../searcherInput/SearcherInput";
 import PaginationComponent from "../paginate/Pagination";
+import { useState } from "react";
 
 const Home = () => {
   // const [toogle, setToogle] = useState<boolean>();

@@ -1,6 +1,6 @@
 "use client";
 
-import { Button, Checkbox, Label, Modal, TextInput } from "flowbite-react";
+import { Label, Modal, TextInput } from "flowbite-react";
 import { useState } from "react";
 import "./test.css";
 import axios from "axios";
@@ -26,6 +26,7 @@ export default function AddModal() {
       "https://henry-partner-back-test.vercel.app/api/products",
       product
     );
+    console.log(data);
 
     dispatch(getProducts());
   };
